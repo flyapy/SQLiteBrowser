@@ -6,26 +6,33 @@
         xmlns:local="clr-namespace:SQLiteBrowser"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Class="SQLiteBrowser.MainWindow"
         mc:Ignorable="d"
-        Title="SQLiteBrowser" Height="600" Width="800">
-    <DockPanel LastChildFill="False">
-        <Menu DockPanel.Dock="Top" Background="LightGray" VerticalContentAlignment="Center" Height="28">
-            <MenuItem Width="60" FontSize="14" VerticalAlignment="Center" Height="28">
-                <MenuItem.Header>
-                    <TextBlock Text="文件" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                </MenuItem.Header>
+        x:Name="TopWindow" Title="SQLiteBrowser" Height="600" Width="800">
+    <Window.Resources>
+        <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+            <Style.Triggers>
+                <Trigger Property="IsSubmenuOpen" Value="True">
+                    <Setter Property="Background" Value="LightBlue"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <DockPanel x:Name="MainContainer" LastChildFill="False" >
+        <Menu DockPanel.Dock="Top" VerticalContentAlignment="Center"  FontFamily="微软雅黑"  FontSize="14" Background="White">
+            <MenuItem Header="文件" VerticalAlignment="Center" Style="{StaticResource MenuItemStyle}">
+                <MenuItem Header="新建数据库"></MenuItem>
             </MenuItem>
-            <MenuItem FontSize="14" VerticalAlignment="Center" Height="28" Width="60">
-                <MenuItem.Header>
-                    <TextBlock Text="SQLite" VerticalAlignment="Center"></TextBlock>
-                </MenuItem.Header>
+            <MenuItem  Header="数据库" Style="{StaticResource MenuItemStyle}">
+                <MenuItem Header="连接数据库"></MenuItem>
+                <MenuItem Header="表" IsEnabled="False"></MenuItem>
+                <MenuItem Header="断开连接" IsEnabled="False"></MenuItem>
             </MenuItem>
-            <MenuItem FontSize="14" VerticalAlignment="Center" Height="28" Width="60">
-                <MenuItem.Header>
-                    <TextBlock Text="关于" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                </MenuItem.Header>
+            <MenuItem Header="帮助" VerticalAlignment="Center" Style="{StaticResource MenuItemStyle}">
+                <MenuItem Header="关于"></MenuItem>
             </MenuItem>
         </Menu>
-        <Grid></Grid>
+        <Grid x:Name="InfoGrid" Width="{Binding Path=Width, ElementName=TopWindow, NotifyOnSourceUpdated=True}" >
+            <TextBlock x:Name="HintTxt" Text="无信息显示" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </Grid>
     </DockPanel>
 
 </Window>
